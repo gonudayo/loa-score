@@ -6,6 +6,8 @@ dotenv.config();
 
 app.use(express.json());
 
+app.use("/char", require("./routes/char"));
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
