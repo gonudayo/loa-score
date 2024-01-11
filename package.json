@@ -1,0 +1,24 @@
+{
+  "name": "loa-score",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node bin/www.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gonudayo/loa-score.git"
+  },
+  "author": "gonudayo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gonudayo/loa-score/issues"
+  },
+  "homepage": "https://github.com/gonudayo/loa-score#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
