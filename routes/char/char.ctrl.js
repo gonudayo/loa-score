@@ -31,6 +31,8 @@ const ctrl = async (req, res) => {
   let engravingDamage = engraving(engravings);
   let gemDamage = gem(gems.Gems);
 
+  let critRate = profiles.Stats[0].Value / 27.944;
+
   return res.status(200).json({
     score:
       attackPower * additionalDamage * cardDamage * engravingDamage * gemDamage,
