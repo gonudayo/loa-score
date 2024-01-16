@@ -37,12 +37,31 @@ const data = {
   "공격력 감소 Lv. 3": 0.94,
 };
 
-const engraving = (arr) => {
-  let value = 1;
-  for (let i = 0; i < arr.length; i++) {
-    value *= data[arr[i].Name] ?? 1;
-  }
-  return value;
+const critData = {
+  "아드레날린 Lv. 1": 5,
+  "아드레날린 Lv. 2": 10,
+  "아드레날린 Lv. 3": 15,
+  "정밀 단도 Lv. 1": 4,
+  "정밀 단도 Lv. 2": 10,
+  "정밀 단도 Lv. 3": 15,
+};
+
+const engraving = {
+  getDamage: (arr) => {
+    let value = 1;
+    for (let i = 0; i < arr.length; i++) {
+      value *= data[arr[i].Name] ?? 1;
+    }
+    return value;
+  },
+
+  getCrit: (arr) => {
+    let value = 0;
+    for (let i = 0; i < arr.length; i++) {
+      value += critData[arr[i].Name] ?? 0;
+    }
+    return value;
+  },
 };
 
 module.exports = engraving;

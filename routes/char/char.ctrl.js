@@ -28,14 +28,16 @@ const ctrl = async (req, res) => {
   let additionalDamage =
     1 + equipment[0].Tooltip.split("추가 피해 +")[1].split("%")[0] / 100;
   let cardDamage = card[cards[cards.length - 1].Name] ?? 1;
-  let engravingDamage = engraving(engravings);
+  let engravingDamage = engraving.getDamage(engravings);
   let gemDamage = gem(gems.Gems);
 
-  let critRate = profiles.Stats[0].Value / 27.944;
+  let critRate =
+    profiles.Stats[0].Value / 27.944 + engraving.getCrit(engravings);
 
   return res.status(200).json({
     score:
       attackPower * additionalDamage * cardDamage * engravingDamage * gemDamage,
+    data: critRate,
   });
 };
 
