@@ -49,17 +49,29 @@ const critData = {
 const engraving = {
   getDamage: (arr) => {
     let value = 1;
+
+    if (arr === null) {
+      return value;
+    }
+
     for (let i = 0; i < arr.length; i++) {
       value *= data[arr[i].Name] ?? 1;
     }
+
     return value;
   },
 
   getCrit: (arr) => {
     let value = 0;
+
+    if (arr === null) {
+      return value;
+    }
+
     for (let i = 0; i < arr.length; i++) {
       value += critData[arr[i].Name] ?? 0;
     }
+
     return value;
   },
 };
