@@ -20,7 +20,10 @@ const gem = (arr) => {
       value += data[arr[i].Level];
     }
   }
-  return value / cnt;
+
+  value = value / cnt || 1;
+  console.log("보석 : " + value);
+  return value;
 };
 
 module.exports = gem;

@@ -58,6 +58,7 @@ const engraving = {
       value *= data[arr[i].Name] ?? 1;
     }
 
+    console.log("각인 : " + value);
     return value;
   },
 

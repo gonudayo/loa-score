@@ -15,6 +15,8 @@ const ctrl = async (req, res) => {
     }
     attackPower = body.data.Stats[7]?.Value ?? 1;
     critRate += (body.data.Stats[0]?.Value ?? 27.944) / 27.944;
+    console.log("공격력 : " + attackPower);
+    console.log("치명타 확률 : " + critRate);
     return body.data;
   });
 
@@ -24,6 +26,7 @@ const ctrl = async (req, res) => {
     }
     additionalDamage =
       (1 + body.data[0].Tooltip.split("추가 피해 +")[1].split("%")[0]) / 100;
+    console.log("추가 피해 : " + additionalDamage);
     return body.data;
   });
 
@@ -54,7 +57,7 @@ const ctrl = async (req, res) => {
 
   critRate += engraving.getCrit(engravings);
   let engravingDamage = engraving.getDamage(engravings);
-  let set = equipment(equipments);
+  let set = equipment.set(equipments);
 
   return res.status(200).json({
     name: profiles.CharacterName,
