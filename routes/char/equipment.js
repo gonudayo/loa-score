@@ -45,6 +45,7 @@ let template = {
     3: 0,
   },
   bracelet: [],
+  cho: [],
 };
 
 const equipment = {
@@ -59,10 +60,25 @@ const equipment = {
       if (i < 6) {
         const vaildType = ["무기", "투구", "상의", "하의", "장갑", "어깨"];
         if (vaildType.includes(arr[i].Type)) {
-          let tmp = arr[i].Tooltip.split(" <FONT COLOR='#FFD200'>Lv.");
-          let set = tmp[0].slice(-2);
-          let level = tmp[1].slice(0, 1);
+          let setTmp = arr[i].Tooltip.split(" <FONT COLOR='#FFD200'>Lv.");
+          let set = setTmp[0].slice(-2);
+          let level = setTmp[1].slice(0, 1);
           ++value[set][level];
+
+          if (arr[i].Type !== vaildType[0] && arr[i].Tooltip.includes("초월")) {
+            let choTmp = arr[i].Tooltip.split(
+              "</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>"
+            );
+            let grade = choTmp[0].slice(-1);
+            const matchResult = choTmp[1].match(/\d+/);
+            let num = parseInt(matchResult[0], 10);
+
+            value.cho.push({
+              set: arr[i].Type,
+              grade: grade,
+              num: num,
+            });
+          }
         }
       } else if (arr[i].Type === "팔찌") {
         const regexPattern = /<FONT COLOR=''>\s*([^<]+)\s*<\/FONT>/g;
