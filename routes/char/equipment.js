@@ -46,6 +46,7 @@ let template = {
   },
   bracelet: [],
   cho: [],
+  elixir: [],
 };
 
 const equipment = {
@@ -65,19 +66,36 @@ const equipment = {
           let level = setTmp[1].slice(0, 1);
           ++value[set][level];
 
-          if (arr[i].Type !== vaildType[0] && arr[i].Tooltip.includes("초월")) {
-            let choTmp = arr[i].Tooltip.split(
-              "</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>"
-            );
-            let grade = choTmp[0].slice(-1);
-            const matchResult = choTmp[1].match(/\d+/);
-            let num = parseInt(matchResult[0], 10);
+          if (arr[i].Type !== vaildType[0]) {
+            if (arr[i].Tooltip.includes("초월")) {
+              let choTmp = arr[i].Tooltip.split(
+                "</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>"
+              );
+              let grade = choTmp[0].slice(-1);
+              const matchResult = choTmp[1].match(/\d+/);
+              let num = parseInt(matchResult[0], 10);
 
-            value.cho.push({
-              set: arr[i].Type,
-              grade: grade,
-              num: num,
-            });
+              value.cho.push({
+                set: arr[i].Type,
+                grade: grade,
+                num: num,
+              });
+            }
+            if (arr[i].Tooltip.includes("엘릭서")) {
+              const regexStart = /<\/FONT>(.*?)<FONT color='#FFD200'>Lv\./g;
+              const regexEnd = /<FONT color='#FFD200'>Lv\.(.*?)<\/FONT>/g;
+
+              const matchName = arr[i].Tooltip.match(regexStart);
+              const matchLevel = arr[i].Tooltip.match(regexEnd);
+
+              for (let j = 0; j < matchName.length; j++) {
+                value.elixir.push({
+                  set: arr[i].Type,
+                  name: matchName[j].match(/> (.*?) </)[1],
+                  level: matchLevel[j].match(/>Lv\.(.*?)</)[1],
+                });
+              }
+            }
           }
         }
       } else if (arr[i].Type === "팔찌") {
@@ -94,12 +112,6 @@ const equipment = {
     }
 
     return value;
-  },
-
-  bracelet: (arr) => {
-    if (arr === null) {
-      return value;
-    }
   },
 };
 
