@@ -46,7 +46,11 @@ let template = {
   },
   bracelet: [],
   cho: [],
-  elixir: [],
+  elixir: [
+    {
+      sum: 0,
+    },
+  ],
 };
 
 const equipment = {
@@ -89,11 +93,14 @@ const equipment = {
               const matchLevel = arr[i].Tooltip.match(regexEnd);
 
               for (let j = 0; j < matchName.length; j++) {
+                let name = matchName[j].match(/> (.*?) </)[1];
+                let level = Number(matchLevel[j].match(/>Lv\.(.*?)</)[1]);
                 value.elixir.push({
                   set: arr[i].Type,
-                  name: matchName[j].match(/> (.*?) </)[1],
-                  level: matchLevel[j].match(/>Lv\.(.*?)</)[1],
+                  name: name,
+                  level: level,
                 });
+                value.elixir[0].sum += level;
               }
             }
           }
